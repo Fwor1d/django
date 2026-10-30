@@ -19,8 +19,8 @@ class BlogTests(TestCase):
         cls.draft = Post.objects.create(title="Черновик", body="Не опубликовано", author=cls.author)
 
     def test_home_and_about(self):
-        self.assertEqual(self.client.get(reverse("home")).status_code, 200)
-        self.assertEqual(self.client.get(reverse("about")).status_code, 200)
+        self.assertEqual(self.client.get(reverse("blog:home")).status_code, 200)
+        self.assertEqual(self.client.get(reverse("blog:about")).status_code, 200)
 
     def test_post_slug_url(self):
         self.assertIn("testovyy", self.post.slug)
