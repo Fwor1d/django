@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+{% block title %}Удалить публикацию{% endblock %}
+{% block content %}
+<div class="card border-danger"><div class="card-body p-4">
+  <h1 class="h3">Удалить публикацию?</h1>
+  <p>Вы действительно хотите удалить «{{ post.title }}»? Это действие также удалит комментарии и не может быть отменено.</p>
+  <form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit">Удалить навсегда</button>
+    <a class="btn btn-outline-secondary" href="{{ post.get_absolute_url }}">Отмена</a>
+  </form>
+</div></div>
+{% endblock %}

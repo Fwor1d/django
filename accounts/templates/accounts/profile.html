@@ -1,0 +1,81 @@
+
+{% extends 'blog/base.html' %}
+
+{% block title %}Профиль {{ profile_user.username }}{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body p-4">
+
+        <div class="row g-4 align-items-start">
+
+            <!-- Аватар пользователя -->
+            <div class="col-12 col-md-auto text-center">
+                <img
+                    class="avatar"
+                    src="{{ profile.avatar_url }}"
+                    alt="Аватар пользователя {{ profile_user.username }}"
+                    width="140"
+                    height="140"
+                    style="
+                        width: 140px;
+                        height: 140px;
+                        max-width: 100%;
+                        object-fit: cover;
+                        border-radius: 50%;
+                        display: block;
+                        margin: 0 auto;
+                        border: 2px solid #dee2e6;
+                    "
+                >
+            </div>
+
+            <!-- Информация о пользователе -->
+            <div class="col">
+
+                <h1 class="h2 mb-3">
+                    {{ profile_user.username }}
+                </h1>
+
+                <p>
+                    <strong>Имя:</strong>
+                    {{ profile_user.first_name|default:'—' }}
+                    {{ profile_user.last_name }}
+                </p>
+
+                <p>
+                    <strong>Email:</strong>
+                    {{ profile_user.email|default:'—' }}
+                </p>
+
+                <p>
+                    <strong>О себе:</strong>
+                    {{ profile.bio|default:'—' }}
+                </p>
+
+                <p>
+                    <strong>Город:</strong>
+                    {{ profile.location|default:'—' }}
+                </p>
+
+                <p>
+                    <strong>Дата рождения:</strong>
+                    {{ profile.birth_date|date:'d.m.Y'|default:'—' }}
+                </p>
+
+                <!-- Редактирование своего профиля -->
+                {% if request.user == profile_user %}
+                    <a
+                        class="btn btn-primary mt-2"
+                        href="{% url 'profile_edit' %}"
+                    >
+                        Редактировать профиль
+                    </a>
+                {% endif %}
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

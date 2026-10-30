@@ -1,0 +1,48 @@
+{% extends 'blog/base.html' %}
+{% block title %}{{ post.title }} — Django Blog{% endblock %}
+{% block seo %}<link rel="canonical" href="{{ canonical_url }}">{% endblock %}
+{% block content %}
+<article class="card mb-4"><div class="card-body p-4">
+  <h1 class="h2">{{ post.title }}</h1>
+  <p class="small text-muted">{{ post.created_at|date:'d.m.Y H:i' }}
+    {% if post.author %} · Автор: <a href="{% url 'user_profile' username=post.author.username %}">{{ post.author.username }}</a>{% endif %}
+    {% if post.updated_at and post.updated_at != post.created_at %} · Обновлено: {{ post.updated_at|date:'d.m.Y H:i' }}{% endif %}
+  </p>
+  {% if not post.is_published %}<div class="alert alert-warning">Этот пост пока не опубликован.</div>{% endif %}
+  {% if post.summary %}<p class="lead">{{ post.summary }}</p>{% endif %}
+  <div class="post-body">{{ post.body|linebreaks }}</div>
+  <div class="d-flex flex-wrap gap-2 mt-4">
+    <a class="btn btn-outline-secondary" href="{% url 'blog:post_list' %}">К списку постов</a>
+    {% if request.user.is_authenticated %}
+      {% if request.user == post.author or request.user.is_superuser %}
+        <a class="btn btn-outline-primary" href="{{ post.get_edit_url }}">Редактировать</a>
+        <a class="btn btn-outline-danger" href="{{ post.get_delete_url }}">Удалить</a>
+      {% endif %}
+    {% endif %}
+  </div>
+</div></article>
+<section id="comments" class="card"><div class="card-body p-4">
+  <h2 class="h4">Комментарии ({{ comments.count }})</h2>
+  {% for comment in comments %}
+    <div class="border-bottom py-3">
+      <div class="d-flex justify-content-between flex-wrap gap-2">
+        <strong><a href="{% url 'user_profile' username=comment.author.username %}">{{ comment.author.username }}</a></strong>
+        <small class="text-muted">{{ comment.created_at|date:'d.m.Y H:i' }}</small>
+      </div>
+      <div>{{ comment.text|linebreaksbr }}</div>
+    </div>
+  {% empty %}
+    <p class="text-muted">Пока нет комментариев. Станьте первым!</p>
+  {% endfor %}
+  <h3 class="h5 mt-4">Оставить комментарий</h3>
+  {% if request.user.is_authenticated %}
+    <form method="post" action="{{ post.get_absolute_url }}#comments">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+  {% else %}
+    <p><a href="{% url 'login' %}?next={{ request.path|urlencode }}">Войдите</a>, чтобы оставить комментарий.</p>
+  {% endif %}
+</div></section>
+{% endblock %}

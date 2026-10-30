@@ -1,0 +1,39 @@
+{% extends 'blog/base.html' %}
+{% block title %}Главная — Django Blog{% endblock %}
+{% block content %}
+<section class="hero p-4 p-md-5 mb-4 rounded-4">
+  <div class="row align-items-center g-3">
+    <div class="col-lg-9">
+      <span class="text-uppercase small fw-bold">Учебный проект · Django</span>
+      <h1 class="display-5 fw-bold mt-2">Добро пожаловать в блог</h1>
+      <p class="lead mb-3">Публикации, комментарии, поиск, профили пользователей и работа с базой данных через ORM.</p>
+      <a class="btn btn-primary btn-lg" href="{% url 'blog:post_list' %}">Читать публикации</a>
+    </div>
+  </div>
+</section>
+<div class="row g-4">
+  <div class="col-md-7">
+    <h2 class="h4">Последние публикации</h2>
+    {% for post in latest_posts %}
+      <article class="card mb-3"><div class="card-body">
+        <h3 class="h5"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+        <p class="mb-0 text-muted">{{ post.summary|default:post.body|truncatechars:125 }}</p>
+      </div></article>
+    {% empty %}
+      <p class="text-muted">Опубликованных постов пока нет. Зарегистрируйтесь, чтобы создать первый.</p>
+    {% endfor %}
+  </div>
+  <div class="col-md-5">
+    <section class="card h-100"><div class="card-body">
+      <h2 class="h4">Цели курса</h2>
+      <ul class="mb-0">
+        <li>Освоить Django и маршрутизацию</li>
+        <li>Работать с шаблонами и Bootstrap</li>
+        <li>Использовать модели и ORM</li>
+        <li>Создавать и проверять формы</li>
+        <li>Разрабатывать блог с авторизацией</li>
+      </ul>
+    </div></section>
+  </div>
+</div>
+{% endblock %}

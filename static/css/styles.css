@@ -1,0 +1,20 @@
+:root { color-scheme: light; }
+body { min-height: 100vh; background: #f5f7fb; color: #1d2939; }
+main { min-height: 60vh; }
+a { text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+.hero { color: #1b3159; background: linear-gradient(120deg, #e4efff, #f7faff 70%); border: 1px solid #d7e6ff; }
+.card { border-color: #e2e8f0; border-radius: 12px; }
+.card-body { line-height: 1.65; }
+.btn { border-radius: 8px; }
+.post-body { overflow-wrap: anywhere; }
+.auth-card { max-width: 540px; }
+.auth-card form p > label, form p > label { display: block; font-weight: 600; margin-bottom: 6px; }
+.auth-card form input:not([type="checkbox"]), form p input:not([type="checkbox"]),
+.auth-card form select { max-width: 100%; width: 100%; display: block; border: 1px solid #cad4e2; border-radius: 6px; padding: 9px 12px; }
+.auth-card form ul { font-size: .85rem; color: #667085; }
+.errorlist { color: #ad2432!important; }
+.avatar { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 5px solid #e4efff; background: #e4efff; }
+.navbar { min-height: 64px; }
+.nav-auth form { display: inline; }
+@media (max-width: 575px) { .hero h1 { font-size: 2rem; } .avatar { width: 110px; height: 110px; } }

@@ -1,0 +1,16 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+.idea/
+.env
+.env.*
+.django-secret-key
+db.sqlite3
+*.sqlite3
+media/
+staticfiles/
+*.log
+*.zip
+.pytest_cache/
