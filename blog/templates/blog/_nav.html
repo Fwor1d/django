@@ -1,14 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Основное меню">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="{% url 'home' %}">Django Blog</a>
+    <a class="navbar-brand fw-bold" href="{% url 'blog:home' %}">Django Blog</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Открыть меню">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="mainNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Главная</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'blog:home' %}">Главная</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'blog:post_list' %}">Посты</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">О проекте</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'blog:about' %}">О проекте</a></li>
         <li class="nav-item"><a class="nav-link" href="#" title="Раздел FAQ запланирован">FAQ</a></li>
         {% if request.user.is_authenticated %}
           <li class="nav-item"><a class="nav-link" href="{% url 'blog:post_create' %}">Создать пост</a></li>
