@@ -28,6 +28,7 @@ def post_list(request):
     if query:
         posts = posts.filter(Q(title__icontains=query) | Q(body__icontains=query) |
                              Q(summary__icontains=query))
+    posts = posts.order_by("-created_at", "-pk")
     paginator = Paginator(posts, 5)
     page_obj = paginator.get_page(request.GET.get("page"))
     return render(request, "blog/post_list.html", {
@@ -100,7 +101,7 @@ def post_edit(request, year, month, day, slug):
     if request.method == "POST" and form.is_valid():
         form.save()
         return redirect(post.get_absolute_url())
-    return render(request, "blog/post_form.html", {"form": form, "editing": True, "post": post})
+    return render(request, "blog/post_form_edit.html", {"form": form, "editing": True, "post": post})
 
 
 @login_required
